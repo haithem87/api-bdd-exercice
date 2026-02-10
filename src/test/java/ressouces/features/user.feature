@@ -1,6 +1,5 @@
 Feature: User management
 
-Feature: User management
 
   Scenario: Get a user using ID
     Given I check the API status 200
