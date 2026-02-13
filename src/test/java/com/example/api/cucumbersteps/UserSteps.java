@@ -34,7 +34,17 @@ public class UserSteps {
         File jsonFile = new File("src/test/java/ressouces/data/"+jsonFileName+".json");
         String json = new String(Files.readAllBytes(jsonFile.toPath()));
 
-        // to do ...
+        HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		HttpEntity<String> request =
+            new HttpEntity<>(json, headers);
+
+		response = restTemplate.postForEntity(
+            baseUrl,
+            request,
+            Map.class
+    );
     }
 
 
@@ -67,5 +77,19 @@ public class UserSteps {
         assertEquals("API status code mismatch", expectedStatus, healthStatus);
 
     }
+	
+	@Then("the response status should be {int}")
+	public void validateStatus(int expectedStatus) {
+    assertEquals(expectedStatus, response.getStatusCodeValue());
+	}
+
+	@Then("the response should contain an id")
+	public void validateIdExists() {
+
+    Map<String, Object> body = response.getBody();
+    assertNotNull(body);
+    assertNotNull(body.get("id"));
+	}
+
 
 }

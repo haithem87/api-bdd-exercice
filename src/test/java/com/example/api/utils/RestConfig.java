@@ -1,12 +1,17 @@
 package com.example.api.utils;
 
-import io.restassured.RestAssured;
-import org.junit.BeforeClass;
+import org.springframework.web.client.RestTemplate;
 
 public class RestConfig {
 
-    @BeforeClass
-    public static void setup() {
-        RestAssured.baseURI = "https://fakestoreapi.com";
+    private static final String BASE_URL = "https://fakestoreapi.com";
+    private static final RestTemplate restTemplate = new RestTemplate();
+
+    public static RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
+
+    public static String getBaseUrl() {
+        return BASE_URL;
     }
 }

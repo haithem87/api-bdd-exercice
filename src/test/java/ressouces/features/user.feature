@@ -1,15 +1,24 @@
 Feature: User management
 
+  @getUser
+  Scenario Outline: Get a user using ID
+    When I check the API status 200
+    And I get the user by id <id>
+    Then the response status should be 200
 
-  Scenario: Get a user using ID
-    Given I check the API status 200
-    Then I get the user by id 1
+    Examples:
+      | id |
+      | 1  |
+      | 2  |
 
-  Scenario: Create a user using
-    Given I check the API status 200
-# to do #    Then I create the user from "fileName"
+  @createUser
+  Scenario Outline: Create a user using
+    When I check the API status 200
+    And I create the user from "<fileName>"
+    Then the response status should be 200
+    And the response should contain an id
 
-
-
-
-
+    Examples:
+      | fileName    |
+      | user1		|
+      | user2		|
